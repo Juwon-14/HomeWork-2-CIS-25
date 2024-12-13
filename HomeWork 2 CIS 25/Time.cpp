@@ -41,5 +41,5 @@ void Time::normalize() {
     second %= 60;
     hour += minute / 60;
     minute %= 60;
-    hour %= 24; // Wrap around after 24 hours
+    hour %= 24;
 }
