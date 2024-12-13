@@ -5,7 +5,6 @@
 //  Created by Juwon Hong on 12/11/24.
 //
 
-// main.cpp
 #include <iostream>
 #include "DateTime.h"
 
