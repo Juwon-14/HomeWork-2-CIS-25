@@ -5,7 +5,6 @@
 //  Created by Juwon Hong on 12/11/24.
 //
 
-// DateTime.cpp
 #include "DateTime.h"
 
 Time::Time(int h, int m, int s) : hour(h), minute(m), second(s) {}
@@ -44,54 +43,55 @@ void Date::addDays(int days) {
                 month = 1;
                 year++;
             }
-                   }
-               }
-           }
+        }
+    }
+}
 
-           DateTime::DateTime(int y, int m, int d, int h, int min, int sec) : date(y, m, d), time(h, min, sec) {}
+DateTime::DateTime(int y, int m, int d, int h, int min, int sec)
+    : Date(y, m, d), Time(h, min, sec) {}
 
-           void DateTime::addSeconds(int sec) {
-               time.addSeconds(sec);
-               if (time.hour == 0 && time.minute == 0 && time.second == 0) {
-                   date.addDays(1);
-               }
-           }
+void DateTime::addSeconds(int sec) {
+    Time::addSeconds(sec);
+    if (hour == 0 && minute == 0 && second == 0) {
+        Date::addDays(1);
+    }
+}
 
-           void DateTime::addMinutes(int min) {
-               addSeconds(min * 60);
-           }
+void DateTime::addMinutes(int min) {
+    addSeconds(min * 60);
+}
 
-           void DateTime::addHours(int hrs) {
-               addMinutes(hrs * 60);
-           }
+void DateTime::addHours(int hrs) {
+    addMinutes(hrs * 60);
+}
 
-           void DateTime::addDays(int days) {
-               date.addDays(days);
-           }
+void DateTime::addDays(int days) {
+    Date::addDays(days);
+}
 
-           std::string DateTime::format(const std::string& formatString) const {
-               std::ostringstream oss;
-               for (size_t i = 0; i < formatString.size(); ++i) {
-                   if (formatString[i] == 'Y') {
-                       oss << date.year;
-                   } else if (formatString[i] == 'M' && formatString[i + 1] == 'M') {
-                       oss << std::setw(2) << std::setfill('0') << date.month;
-                       ++i;
-                   } else if (formatString[i] == 'D' && formatString[i + 1] == 'D') {
-                       oss << std::setw(2) << std::setfill('0') << date.day;
-                       ++i;
-                   } else if (formatString[i] == 'H' && formatString[i + 1] == 'H') {
-                       oss << std::setw(2) << std::setfill('0') << time.hour;
-                       ++i;
-                   } else if (formatString[i] == 'm' && formatString[i + 1] == 'm') {
-                       oss << std::setw(2) << std::setfill('0') << time.minute;
-                       ++i;
-                   } else if (formatString[i] == 's' && formatString[i + 1] == 's') {
-                       oss << std::setw(2) << std::setfill('0') << time.second;
-                       ++i;
-                   } else {
-                       oss << formatString[i];
-                   }
-               }
-               return oss.str();
-           }
+std::string DateTime::format(const std::string& formatString) const {
+    std::ostringstream oss;
+    for (size_t i = 0; i < formatString.size(); ++i) {
+        if (formatString[i] == 'Y') {
+            oss << year;
+        } else if (formatString[i] == 'M' && formatString[i + 1] == 'M') {
+            oss << std::setw(2) << std::setfill('0') << month;
+            ++i;
+        } else if (formatString[i] == 'D' && formatString[i + 1] == 'D') {
+            oss << std::setw(2) << std::setfill('0') << day;
+            ++i;
+        } else if (formatString[i] == 'H' && formatString[i + 1] == 'H') {
+            oss << std::setw(2) << std::setfill('0') << hour;
+            ++i;
+        } else if (formatString[i] == 'm' && formatString[i + 1] == 'm') {
+            oss << std::setw(2) << std::setfill('0') << minute;
+            ++i;
+        } else if (formatString[i] == 's' && formatString[i + 1] == 's') {
+            oss << std::setw(2) << std::setfill('0') << second;
+            ++i;
+        } else {
+            oss << formatString[i];
+        }
+    }
+    return oss.str();
+}
