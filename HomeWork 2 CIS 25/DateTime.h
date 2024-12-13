@@ -9,35 +9,17 @@
 #ifndef DATETIME_H
 #define DATETIME_H
 
+#include "Date.h"
+
 #include <string>
-#include <sstream>
-#include <iomanip>
+using namespace std;
 
-class Time {
+class DateTime : public Date {
 public:
-    int hour, minute, second;
+    DateTime(int y = 0, int m = 1, int d = 1, int h = 0, int min = 0, int s = 0);
 
-    Time(int h = 0, int m = 0, int s = 0);
-    void addSeconds(int sec);
+    int differenceInSeconds(const DateTime& other) const;
+    string format(const string& formatString) const;
 };
 
-class Date {
-public:
-    int year, month, day;
-
-    Date(int y = 1970, int m = 1, int d = 1);
-    bool isLeapYear() const;
-    int daysInMonth() const;
-    void addDays(int days);
-};
-
-class DateTime : public Date, public Time {
-public:
-    DateTime(int y = 1970, int m = 1, int d = 1, int h = 0, int min = 0, int sec = 0);
-    void addSeconds(int sec);
-    void addMinutes(int min);
-    void addHours(int hrs);
-    void addDays(int days);
-    std::string format(const std::string& formatString) const;
-};
-#endif 
+#endif
