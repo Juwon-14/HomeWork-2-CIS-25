@@ -31,11 +31,8 @@ public:
     void addDays(int days);
 };
 
-class DateTime {
+class DateTime : public Date, public Time {
 public:
-    Date date;
-    Time time;
-
     DateTime(int y = 1970, int m = 1, int d = 1, int h = 0, int min = 0, int sec = 0);
     void addSeconds(int sec);
     void addMinutes(int min);
@@ -43,5 +40,4 @@ public:
     void addDays(int days);
     std::string format(const std::string& formatString) const;
 };
-
 #endif 
